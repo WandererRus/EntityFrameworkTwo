@@ -10,11 +10,9 @@ namespace EntityFrameworkTwo
     {
         static void Main(string[] args)
         {
-            //this execute only once. if you was run programm and this values exist in database comment string below.
-            // or increase for next run id value by 1
-            //AddFruit(new fandv(51,"name51","fruit","orange",319));
+            AddFruit(new fandv(51,"name51","fruit","orange",319));
             GetAllFruits();
-
+            
             Console.ReadLine();
         }
 
@@ -22,8 +20,12 @@ namespace EntityFrameworkTwo
         {
             using (FruitsAndVegatablesEntities fandvEntities = new FruitsAndVegatablesEntities())
             {
-                fandvEntities.fandv.Add(item);
-                fandvEntities.SaveChanges();
+                fandv exist = fandvEntities.fandv.Where((x) => x.Name == item.Name).FirstOrDefault();
+                if (exist == null)
+                { 
+                    fandvEntities.fandv.Add(item);
+                    fandvEntities.SaveChanges();
+                }
             }
         }
 
