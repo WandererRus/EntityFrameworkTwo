@@ -20,9 +20,9 @@ namespace EntityFrameworkTwo
         public string Color { get; set; }
         public int Calories { get; set; }
         public fandv()
-        {            
+        {
         }
-        public fandv(int id, string name, string type, string color, int calories) 
+        public fandv(int id, string name, string type, string color, int calories)
         {
             Id = id;
             Name = name;
@@ -35,5 +35,4 @@ namespace EntityFrameworkTwo
             return Id.ToString() + " " + Name + " " + Type + " " + Color + " " + Calories.ToString();
         }
     }
-    
 }

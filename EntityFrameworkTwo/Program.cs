@@ -11,8 +11,8 @@ namespace EntityFrameworkTwo
         static void Main(string[] args)
         {
             AddFruit(new fandv(52,"name52","fruits","orange",319));
-            GetAllFruits();
-            
+            MyTransaction();
+            GetAllFruits();            
             Console.ReadLine();
         }
 
@@ -21,7 +21,6 @@ namespace EntityFrameworkTwo
             using (FruitsAndVegatablesEntities fandvEntities = new FruitsAndVegatablesEntities())
             {
                 fandv exist = fandvEntities.fandv.Where((x) => x.Id == item.Id && x.Name == item.Name).FirstOrDefault();
-                Console.WriteLine(exist);
                 if (exist == null)
                 { 
                     fandvEntities.fandv.Add(item);
@@ -42,6 +41,29 @@ namespace EntityFrameworkTwo
                         Console.WriteLine(item);
                     }
                 }
+            }
+        }
+
+        static void MyTransaction()
+        {
+            using (FruitsAndVegatablesEntities fandvEntities = new FruitsAndVegatablesEntities())
+            {
+                using (System.Data.Entity.DbContextTransaction tran = fandvEntities.Database.BeginTransaction())
+                { 
+                    try
+                    {
+                        fandv fav = new fandv(54, "name54", "fruits", "green", 153);
+                        fandvEntities.fandv.Add(fav);
+                        fandvEntities.fandv.Remove(fav);
+                        fandvEntities.SaveChanges();
+                        tran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        tran.Rollback();
+                    }
+                }
+
             }
         }
     }
