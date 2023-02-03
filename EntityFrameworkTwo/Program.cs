@@ -10,7 +10,7 @@ namespace EntityFrameworkTwo
     {
         static void Main(string[] args)
         {
-            AddFruit(new fandv(51,"name51","fruit","orange",319));
+            AddFruit(new fandv(52,"name52","fruits","orange",319));
             GetAllFruits();
             
             Console.ReadLine();
@@ -20,7 +20,8 @@ namespace EntityFrameworkTwo
         {
             using (FruitsAndVegatablesEntities fandvEntities = new FruitsAndVegatablesEntities())
             {
-                fandv exist = fandvEntities.fandv.Where((x) => x.Name == item.Name).FirstOrDefault();
+                fandv exist = fandvEntities.fandv.Where((x) => x.Id == item.Id && x.Name == item.Name).FirstOrDefault();
+                Console.WriteLine(exist);
                 if (exist == null)
                 { 
                     fandvEntities.fandv.Add(item);
